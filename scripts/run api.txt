@@ -1,0 +1,1 @@
+docker run --rm -d --name api_exemplo -p 8285:80 --network net_exemplo -e "STORAGE_PROVIDER=S3" -e "STORAGE_S3_ACCESS_KEY=minio" -e "STORAGE_S3_SECRET_KEY=minio123" -e "STORAGE_S3_FORCE_PATH_STYLE=1" -e "STORAGE_S3_URL=http://minio_exemplo:9000" -e "MENSAGEM_DE_SUCESSO=Bucket criado com sucesso" -e ASPNETCORE_URLS=http://+:80 api_exemplo
