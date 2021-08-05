@@ -1,0 +1,28 @@
+services:
+    minio:
+        image: minio
+        container_name: minio_compose
+        volumes:
+            - .storage/minio:/data
+        environment:
+            MINIO_ACCESS_KEY: "minio"
+            MINIO_SECRET_KEY: "minio123"
+        ports:
+            - 9000:9000
+            - 9001:9001
+        command: server /data
+    api:
+        image: api_exemplo
+        container_name: api_exemplo_compose
+        ports:
+            - 8189:80
+        environment:
+            STORAGE_PROVIDER: "S3"  
+            STORAGE_S3_ACCESS_KEY: "minio"  
+            STORAGE_S3_SECRET_KEY: "minio123"  
+            STORAGE_S3_FORCE_PATH_STYLE: "1"  
+            STORAGE_S3_URL: "http://minio:9000"  
+            MENSAGEM_DE_SUCESSO: "Bucket criado com sucesso"  
+            ASPNETCORE_URLS: "http://+:80"            
+        depends_on:
+            - minio
